@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
     private void SetMoveDirection(Vector2 value)
     {
-        moveDirection = Input.y;
+        moveDirection = value.y;
     }
 
     private void AssignLevelValues()

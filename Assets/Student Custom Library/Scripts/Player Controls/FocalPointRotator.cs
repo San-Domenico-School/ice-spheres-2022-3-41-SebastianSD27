@@ -46,7 +46,7 @@ public class FocalPointRotator : MonoBehaviour
 
     private void CameraRotate(Vector2 value)
     {
-        moveDirection = Input.x;
+        moveDirection = value.x;
     }
 
 }
