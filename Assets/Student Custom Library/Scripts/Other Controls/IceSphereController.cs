@@ -12,7 +12,8 @@ public class IceSphereController : MonoBehaviour
     private Vector3 originalScale;
     private Rigidbody iceRB;
     private ParticleSystem iceVFX;
-    
+    internal int Length;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -26,10 +27,11 @@ public class IceSphereController : MonoBehaviour
         }
         startDelay = 3f;
         minimumVolume = 0.2f;
+        originalScale = transform.localScale;
         iceRB = GetComponent<Rigidbody>();
         iceVFX = GetComponent<ParticleSystem>();
         RandomizeSizeAndMass();
-        InvokeRepeating(nameof(Melt), startDelay, 0.4f);
+        InvokeRepeating("Melt", startDelay, 0.4f);
     }
     //spawn ice spheres with random size and mass
     private void RandomizeSizeAndMass()
@@ -41,7 +43,6 @@ public class IceSphereController : MonoBehaviour
     //ice sphere dissolution
     private void Dissolution()
     {
-        float radius = transform.localScale.x / 2;
         float volume = 4f / 3f * Mathf.PI * Mathf.Pow(transform.localScale.x, 2);
         if (volume < minimumVolume)
         {
@@ -56,8 +57,8 @@ public class IceSphereController : MonoBehaviour
     //ice sphere melt
     private void Melt()
     {
-       transform.localScale *= (5 - reductionEachRepeat);
-       iceRB.mass *= (1 - reductionEachRepeat);
+       transform.localScale *= reductionEachRepeat;
+       iceRB.mass *= reductionEachRepeat;
        Dissolution(); 
     }
 }
