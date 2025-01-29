@@ -94,6 +94,8 @@ public class PlayerController : MonoBehaviour
             Vector3 force = focalPoint.forward.normalized * moveDirection * moveForceMagnitude;
             playerRB.AddForce(force);
         }
+
+        hasPowerUp = GameManager.Instance.debugPowerUpRepel;
     }
 
     private void OnCollisionEnter(Collision collision)

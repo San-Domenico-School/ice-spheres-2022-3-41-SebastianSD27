@@ -39,18 +39,33 @@ public class SpawnManager : MonoBehaviour
     private void Start()
     {
         Vector3 islandSize = island.GetComponent<MeshCollider>().bounds.size;
-        int waveNumber = 1;
+        waveNumber = initialWave;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        FindObjectOfType<IceSphereController>().Length == 0
+        if (FindObjectsOfType<IceSphereController>().Length == 0 
+            && GameObject.FindWithTag("Player") != null)
+        {
+            SpawnIceWave();
+        }
+
     }
 
-    private void SpawnRatWave()
+    private void SpawnIceWave()
     {
+        Vector3 islandSize = island.GetComponent<MeshCollider>().bounds.size;
 
+        for (int i = 0; i < waveNumber; i++)
+        {
+            Vector3 spawnPosition = SetRandomPosition(islandSize, 0);
+            Instantiate(iceSphere, spawnPosition, iceSphere.transform.rotation);
+        }
+        if (waveNumber < maximumWave)
+        {
+            waveNumber++;
+        }
     }
 
     private void SetObjectActive(GameObject obj, float byWaveProbabilty)
@@ -59,9 +74,11 @@ public class SpawnManager : MonoBehaviour
     }
 
     // Spawn ice spheres randomly
-    private Vector3 SetRandomPosition(float PosY)
+    private Vector3 SetRandomPosition(Vector3 islandSize, float PosY)
     {
-        SetRandomPosition: return Vector3.zero;
+        float randomX = Random.Range(-islandSize.x / 2, islandSize.x / 2);
+        float randomZ = Random.Range(-islandSize.z / 2, islandSize.z / 2);
+        return new Vector3(randomX, PosY, randomZ);
     }
 
     // Countdown timer

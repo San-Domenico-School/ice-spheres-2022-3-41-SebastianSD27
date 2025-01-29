@@ -36,7 +36,7 @@ public class IceSphereController : MonoBehaviour
     //spawn ice spheres with random size and mass
     private void RandomizeSizeAndMass()
     {
-        float randomFactor = Random.Range(0.5f, 1.0f);
+        float randomFactor = Random.Range(0.5f, 1.5f);
         transform.localScale = originalScale * randomFactor;
         iceRB.mass = originalMass * randomFactor;
     }
