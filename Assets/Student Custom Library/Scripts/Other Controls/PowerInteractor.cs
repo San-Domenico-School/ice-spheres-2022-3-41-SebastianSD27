@@ -14,7 +14,7 @@ public class PowerInteractor : MonoBehaviour
     {
         iceRB = GetComponent<Rigidbody>();
         iceController = GetComponent<IceSphereController>();
-        pushForce = 10f;
+        pushForce = 1f;
     }
 
     // Collision with game object
@@ -29,7 +29,8 @@ public class PowerInteractor : MonoBehaviour
 
             if (playerController.hasPowerUp)
             {
-                iceRB.AddForce(-direction * playerRB.mass * GameManager.Instance.playerRepelForce);
+                iceRB.AddForce(-direction * playerRB.mass * GameManager.Instance.playerRepelForce * .01f, ForceMode.Impulse);
+                Debug.Log("32: Force " + -direction * playerRB.mass *  GameManager.Instance.playerRepelForce);
             }
             else
             {
