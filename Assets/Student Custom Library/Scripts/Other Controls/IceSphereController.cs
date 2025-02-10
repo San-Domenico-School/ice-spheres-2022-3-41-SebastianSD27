@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************************
+* Ice sphere spawning, movement, gameplay, etc
+* Attached to Monobehavior
+*
+* Sebastian Balakier
+* 2/4/2025, Version 1.0
+*******************************************************************/
+
 public class IceSphereController : MonoBehaviour
 {
     //fields

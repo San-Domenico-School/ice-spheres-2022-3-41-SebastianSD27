@@ -45,21 +45,24 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (FindObjectsOfType<IceSphereController>().Length == 0 
+        if (FindObjectsOfType<IceSphereController>().Length == 0
             && GameObject.FindWithTag("Player") != null)
         {
             SpawnIceWave();
         }
 
+        if ((waveNumber > portalFirstAppearance || GameManager.Instance.debugSpawnPortal)
+            && !portalActive && GameObject.FindGameObjectWithTag("Portal") == null)
+                {
+                    SetObjectActive(portal, portalByWaveProbability);
+                }
     }
 
     private void SpawnIceWave()
     {
-        Vector3 islandSize = island.GetComponent<MeshCollider>().bounds.size;
-
         for (int i = 0; i < waveNumber; i++)
         {
-            Vector3 spawnPosition = SetRandomPosition(islandSize, 0);
+            Vector3 spawnPosition = SetRandomPosition(0);
             Instantiate(iceSphere, spawnPosition, iceSphere.transform.rotation);
         }
         if (waveNumber < maximumWave)
@@ -70,20 +73,44 @@ public class SpawnManager : MonoBehaviour
 
     private void SetObjectActive(GameObject obj, float byWaveProbabilty)
     {
-
+        if (Random.value < waveNumber * byWaveProbabilty * Time.deltaTime ||
+            GameManager.Instance.debugSpawnPortal || GameManager.Instance.debugSpawnPowerUp)
+        {
+            obj.transform.position = SetRandomPosition(obj.transform.position.y);
+            StartCoroutine(CountdownTimer(obj.tag));
+        }
     }
 
-    // Spawn ice spheres randomly
-    private Vector3 SetRandomPosition(Vector3 islandSize, float PosY)
+    // Spawn ice spheres randomly*****************************************************************
+    private Vector3 SetRandomPosition(float PosY)
     {
-        float randomX = Random.Range(-islandSize.x / 2, islandSize.x / 2);
-        float randomZ = Random.Range(-islandSize.z / 2, islandSize.z / 2);
+        float randomX = (Random.Range(-islandSize.x, islandSize.x)) / 2.75f;
+        float randomZ = Random.Range(-islandSize.z / 2f, islandSize.z / 2f);
         return new Vector3(randomX, PosY, randomZ);
     }
 
     // Countdown timer
     IEnumerator CountdownTimer(string objectTag)
     {
-        yield return new WaitForSeconds(1);
+        float byWaveDuration = 0;
+
+        switch(objectTag)
+        {
+            case "Portal":
+                portal.SetActive(true);
+                portalActive = true;
+                byWaveDuration = portalByWaveDuration;
+                break;
+        }
+
+        yield return new WaitForSeconds(waveNumber * byWaveDuration);
+
+        switch(objectTag)
+        {
+            case "Portal":
+                portal.SetActive(false);
+                portalActive = false;
+                break;
+        }
     }
 }

@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************************
+* Repel power up script
+* Attached to Monobehavior
+*
+* Sebastian Balakier
+* 2/4/2025, Version 1.0
+*******************************************************************/
+
 public class PowerInteractor : MonoBehaviour
 {
     //fields
