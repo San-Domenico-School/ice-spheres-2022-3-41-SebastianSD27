@@ -29,7 +29,7 @@ public class ZoomInAnimator : MonoBehaviour
     private void OnDisable()
     {
         CancelInvoke(nameof(ZoomIn));
-        transform.localScale = desiredScale;
+        transform.localScale = initialScale;
     }
 
     private void ZoomIn()

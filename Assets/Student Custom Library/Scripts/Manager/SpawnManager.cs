@@ -38,7 +38,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        Vector3 islandSize = island.GetComponent<MeshCollider>().bounds.size;
+        islandSize = island.GetComponent<MeshCollider>().bounds.size;
         waveNumber = initialWave;
     }
 
