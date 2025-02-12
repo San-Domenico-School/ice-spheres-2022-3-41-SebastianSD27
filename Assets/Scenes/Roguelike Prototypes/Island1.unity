@@ -267,6 +267,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 30
+--- !u!1 &407563185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 407563187}
+  - component: {fileID: 407563186}
+  m_Layer: 0
+  m_Name: Island Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &407563186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407563185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b256a2796a6340428ecee382b049c23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destination: 
+--- !u!4 &407563187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407563185}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.660708, y: 2.061792, z: -3.4652977}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1211016355
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,6 +1008,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7625262443765049041}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1977132215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977132209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3500dc5af6966417d9211f908bd9d6d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destination: Island2
 --- !u!1 &2142931342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,7 +1206,7 @@ PrefabInstance:
     - target: {fileID: 8046851274129672228, guid: 6aed649864726473582ea78d2e649233,
         type: 3}
       propertyPath: m_Name
-      value: PortalRing_02
+      value: Portal
       objectReference: {fileID: 0}
     - target: {fileID: 8046851274129672228, guid: 6aed649864726473582ea78d2e649233,
         type: 3}
@@ -1208,7 +1266,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8046851274129672228, guid: 6aed649864726473582ea78d2e649233,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1977132215}
   m_SourcePrefab: {fileID: 100100000, guid: 6aed649864726473582ea78d2e649233, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -1218,8 +1280,9 @@ SceneRoots:
   - {fileID: 245963551}
   - {fileID: 7305732181041295649}
   - {fileID: 1403545340}
-  - {fileID: 1225440390}
   - {fileID: 381750895}
   - {fileID: 1893815423}
-  - {fileID: 1545129553}
   - {fileID: 7625262443765049041}
+  - {fileID: 1225440390}
+  - {fileID: 1545129553}
+  - {fileID: 407563187}

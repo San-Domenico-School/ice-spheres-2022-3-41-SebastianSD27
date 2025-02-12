@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Roguelike Prototypes/Island2.unity
+    guid: e5ebd5ee8ebf94df9ad950de8574383a
   m_configObjects: {}

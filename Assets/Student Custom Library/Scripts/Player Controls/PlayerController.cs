@@ -63,6 +63,18 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+
+        if ( transform.position.y < -10)
+        {
+            transform.position = Vector3.up * 25;
+
+            /************************************************
+             * Remove the next line i multiplayer mode
+             **********************************************/
+            Destroy(gameObject);
+            IslandManager.Instance.SwitchLevels("Island1");
+           
+        }
     }
 
     private void SetMoveDirection(Vector2 value)
@@ -114,13 +126,30 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
+        if (other.CompareTag("Portal"))
+        {
+            gameObject.layer = LayerMask.NameToLayer("Portal");
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-
+        if (other.CompareTag("Portal"))
+        {
+            gameObject.layer = LayerMask.NameToLayer("Player");
+            if (transform.position.y < 0)
+            {
+                transform.position = Vector3.up * 25;
+                PortalController portal = other.GetComponent<PortalController>();
+                string destination = portal.GetDestination();
+                if (portal != null)
+                {
+                    IslandManager.Instance.SwitchLevels(destination);
+                }
+            }
+        }
     }
+
     private IEnumerator PowerUpCooldown(float cooldown)
     {
         yield return new WaitForSeconds(cooldown);
