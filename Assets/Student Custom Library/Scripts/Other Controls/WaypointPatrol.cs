@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/******************************************************
+ * Attached to Monobehavior
+ * Move IceSpheres through waypoints
+ * 
+ * Sebastian Balakier
+ * 2/14/2025, Version 1.0
+ ******************************************************/
+
 public class WaypointPatrol : MonoBehaviour
 {
     private GameObject[] waypoints;
@@ -13,7 +21,7 @@ public class WaypointPatrol : MonoBehaviour
     private void Start()
     {
         waypoints = GameManager.Instance.waypoints;
-        navMeshAgent = GameObject.Find("IceSphere_Level2").GetComponent<NavMeshAgent>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
         waypointIndex = Random.Range(0, waypoints.Length);
     }
 
@@ -26,10 +34,16 @@ public class WaypointPatrol : MonoBehaviour
     private void MoveToNextWaypoint()
     {
         if (waypoints.Length == 0)
+        {
             return;
+        }
 
-        navMeshAgent.SetDestination(waypoints[waypointIndex].transform.position);
-        waypointIndex = (waypointIndex + 1) % waypoints.Length;
-        
+        if (navMeshAgent.remainingDistance < 0.1)
+        {
+            waypointIndex = (waypointIndex + 1) % waypoints.Length;
+            navMeshAgent.SetDestination(waypoints[waypointIndex].transform.position);
+            Debug.Log("Moving to waypoint");
+        }
     }
 }
+
