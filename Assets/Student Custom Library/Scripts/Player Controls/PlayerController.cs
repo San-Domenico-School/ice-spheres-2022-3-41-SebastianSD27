@@ -126,9 +126,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Portal"))
+        if (other.CompareTag("PowerUp"))
+            Destroy(other.gameObject);
         {
-            gameObject.layer = LayerMask.NameToLayer("Portal");
+            Debug.Log("Power up collected");
+            gameObject.layer = LayerMask.NameToLayer("PowerUp");
+        }
+        if (other.CompareTag("PowerUp"))
+        {
+            PowerUpController powerUpController = other.GetComponent<PowerUpController>();
+            if (powerUpController != null)
+            {
+                other.gameObject.SetActive(false);
+                StartCoroutine(PowerUpCooldown(powerUpController.cooldown));
+            }
         }
     }
 

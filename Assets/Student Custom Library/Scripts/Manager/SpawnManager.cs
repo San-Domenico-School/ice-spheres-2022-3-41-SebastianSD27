@@ -27,9 +27,13 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float portalByWaveProbability;
     [SerializeField] private float portalByWaveDuration;
 
+    //Power up fields
+    [SerializeField] private int powerUpFirstAppearance = 2;
+    [SerializeField] private float powerUpByWaveProbability = 0.04f;
+    [SerializeField] private float powerUpByWaveDuration = 2.75f;
+
     //Island
     [SerializeField] private GameObject island;
-
     private Vector3 islandSize;
     private int waveNumber;
     private bool portalActive;
@@ -61,6 +65,11 @@ public class SpawnManager : MonoBehaviour
                 {
                     SetObjectActive(portal, portalByWaveProbability);
                 }
+        if ((waveNumber > powerUpFirstAppearance || GameManager.Instance.debugSpawnPowerUp)
+            && !powerUpActive && GameObject.FindGameObjectWithTag("PowerUp") == null)
+        {
+            SetObjectActive(powerUp, powerUpByWaveProbability);
+        }
     }
 
     private void SpawnIceWave()
@@ -76,7 +85,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private void SetObjectActive(GameObject obj, float byWaveProbabilty)
+    public void SetObjectActive(GameObject obj, float byWaveProbabilty)
     {
         if (Random.value < waveNumber * byWaveProbabilty * Time.deltaTime ||
             GameManager.Instance.debugSpawnPortal || GameManager.Instance.debugSpawnPowerUp)
@@ -86,7 +95,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    // Spawn ice spheres randomly*****************************************************************
+    // Spawn ice spheres randomly
     private Vector3 SetRandomPosition(float PosY)
     {
         float randomX = (Random.Range(-islandSize.x, islandSize.x)) / 2.75f;

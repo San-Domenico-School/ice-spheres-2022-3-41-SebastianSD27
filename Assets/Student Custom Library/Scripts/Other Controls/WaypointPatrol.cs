@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /******************************************************
- * Attached to Monobehavior
+ * Attached to IceSphere
  * Move IceSpheres through waypoints
  * 
  * Sebastian Balakier
