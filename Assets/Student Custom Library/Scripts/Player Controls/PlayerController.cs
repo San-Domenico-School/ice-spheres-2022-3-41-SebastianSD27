@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /******************************************************
  * Attached to Monobehavior
@@ -22,11 +23,6 @@ public class PlayerController : MonoBehaviour
     private float moveDirection;
     public bool hasPowerUp;
 
-    private void Awake()
-    {
-        inputAction = new PlayerInputActions();
-    }
-
     // Start is called before the first frame update
     private void Start()
     {
@@ -44,20 +40,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnInputAction(InputAction.CallbackContext ctx) => SetMoveDirection(ctx.ReadValue<Vector2>());
+
     // Update is called once per frame
     private void OnEnable()
     {
-        inputAction.Player.Enable();
-        inputAction.Enable();
-        inputAction.Player.Movement.performed += ctx => SetMoveDirection(ctx.ReadValue<Vector2>());
-        inputAction.Player.Movement.canceled += ctx => moveDirection = 0.0f;
+        GameObject player = this.gameObject;
+        player.name = "Player";
 
-        playerRB = GetComponent<Rigidbody>();
+        Renderer renderer = player.GetComponentInChildren< Renderer > ();
+        renderer.material.color = player.GetComponent<ColorPicker>().GetColor();
     }
 
     private void OnDisable()
     {
-        inputAction.Player.Disable();
+        
     }
 
     private void FixedUpdate()
@@ -67,10 +64,6 @@ public class PlayerController : MonoBehaviour
         if ( transform.position.y < -10)
         {
             transform.position = Vector3.up * 25;
-
-            /************************************************
-             * Remove the next line i multiplayer mode
-             **********************************************/
             Destroy(gameObject);
             IslandManager.Instance.SwitchLevels("Island1");
            
@@ -112,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Startup"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             collision.gameObject.tag = "Ground";
             if (playerCollider != null && playerCollider.material != null)
